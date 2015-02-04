@@ -1,0 +1,26 @@
+; Comment 1
+1 Begin  BEGIN
+2 State1 S
+3 State2 T
+4 State3 U
+5 End    END
+#
+; Comment 2
+1 2 1.0
+2 2 0.5
+2 3 0.5
+3 3 0.75
+3 4 0.25
+4 4 0.15
+4 5 0.85
+#
+2 A 0.25
+2 B 0.25
+2 C 0.5
+; Comment 3
+3 A 0.55
+3 B 0.15
+3 C 0.3
+4 A 0.675
+4 B 0.2
+4 C 0.125
