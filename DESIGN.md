@@ -4,63 +4,63 @@ Given a set of sequences in different formats (FASTA, line-by-line) and a Hidden
 
 # Definition of our version of TGF
 
-1 DESCR CODE
-...
-N DESCR CODE
-#
-1 1 PROB
-1 2 PROB
-#
-1 A PROB
-1 B PROB
-2 A PROB
-...
+    1 DESCR CODE
+    ...
+    N DESCR CODE
+    #
+    1 1 PROB
+    1 2 PROB
+    #
+    1 A PROB
+    1 B PROB
+    2 A PROB
+    ...
 
 TODO
 
 # Description of the CMD interface
 
--sequence seq.fasta
+    -sequence seq.fasta
 
--true_sequence true.fasta
--false_sequence false.fasta
--true_state_path true.states
--false_state_path false.states
+    -true_sequence true.fasta
+    -false_sequence false.fasta
+    -true_state_path true.states
+    -false_state_path false.states
 
 TODO
 
 # Definition of the MAUL format
 
 
-> SEQ: NAME_SEQ
+    > SEQ: NAME_SEQ
 
-> ALIGNMENT: 1
-> SCORE: -432
-SEQUENCESEQUENCESEQUENCESEQ
-STATEPATHSTATEPATHSTATEPATH
+    > ALIGNMENT: 1
+    > SCORE: -432
+    SEQUENCESEQUENCESEQUENCESEQ
+    STATEPATHSTATEPATHSTATEPATH
 
-SEQUENCESEQUENCESEQUENCESEQ
-STATEPATHSTATEPATHSTATEPATH
+    SEQUENCESEQUENCESEQUENCESEQ
+    STATEPATHSTATEPATHSTATEPATH
 
-> ALIGNMENT: 2
-> SCORE: -463
-SEQUENCESEQUENCESEQUENCESEQ
-STATEPATHSTATEPATHSTATEPATH
+    > ALIGNMENT: 2
+    > SCORE: -463
+    SEQUENCESEQUENCESEQUENCESEQ
+    STATEPATHSTATEPATHSTATEPATH
 
-SEQUENCESEQUENCESEQUENCESEQ
-STATEPATHSTATEPATHSTATEPATH
+    SEQUENCESEQUENCESEQUENCESEQ
+    STATEPATHSTATEPATHSTATEPATH
 
-> ALIGNMENT: 3
-> SCORE: -481
-SEQUENCESEQUENCESEQUENCESEQ
-STATEPATHSTATEPATHSTATEPATH
+    > ALIGNMENT: 3
+    > SCORE: -481
+    SEQUENCESEQUENCESEQUENCESEQ
+    STATEPATHSTATEPATHSTATEPATH
 
-SEQUENCESEQUENCESEQUENCESEQ
-STATEPATHSTATEPATHSTATEPATH
+    SEQUENCESEQUENCESEQUENCESEQ
+    STATEPATHSTATEPATHSTATEPATH
 
-> SEQ: NAME_SEQ2
+    > SEQ: NAME_SEQ2
 
-...
+    ...
 
 # Modules
 
@@ -75,12 +75,13 @@ STATEPATHSTATEPATHSTATEPATH
   + **Output management:** Return results from the internal representation Viterbi generates.
   + Testing
 
-TGF -> Graph
-FASTA o LbL *-> Sequence
-MAUL *-> StatePath(Sequence)
 
-Sequence *-> Viterbi *-> StatePath(Sequence)
-StatePath(Sequence) + StatePath(Sequence) *-> Quality assessment -> QualityAssessmentResults(StatePath) (\*)
+    TGF -> Graph
+    FASTA o LbL *-> Sequence
+    MAUL *-> StatePath(Sequence)
 
-StatePath *-> OUTPUT -> file, stdout ...
-QualityAssessmentResults *-> OUTPUT -> file, stdout
+    Sequence *-> Viterbi *-> StatePath(Sequence)
+    StatePath(Sequence) + StatePath(Sequence) *-> Quality assessment -> QualityAssessmentResults(StatePath) (\*)
+
+    StatePath *-> OUTPUT -> file, stdout ...
+    QualityAssessmentResults *-> OUTPUT -> file, stdout
