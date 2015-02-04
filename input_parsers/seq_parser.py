@@ -55,7 +55,7 @@ def sequence_generator(input_file):
         else:
             i = 1
             for sequence in raw_seq_iterator(input_file):
-                return Sequence("seq "+i, sequence)
+                return Sequence("seq "+str(i), sequence)
                 i += 1
 
 # Class definition:
@@ -78,3 +78,8 @@ class Sequence:
 
     def __getitem__(self, i):
         return self.get_sequence()[int(i)]
+
+
+# Execution part:
+sequence_generator("prueba.fasta")
+sequence_generator("prueba.raw")
