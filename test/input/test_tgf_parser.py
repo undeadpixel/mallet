@@ -7,7 +7,7 @@ import mallet.input.tgf_parser as tgf
 import mallet.test.fixtures.hmm_fixtures as fixtures
 
 class TestTGFParser(object):
-    
+
     def subject(self, filename = "simple.tgf"):
         return tgf.parse("test/files/{}".format(filename))
 

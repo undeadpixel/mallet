@@ -1,4 +1,6 @@
-# First we define two functions to iterate over the file
+import re
+
+import mallet.sequence as seq
 
 def FASTA_iterator( fasta_filename ):
     """"A Generator function that reads a FASTA file.
@@ -38,48 +40,36 @@ def raw_seq_iterator(seqs_filename):
             line = line.strip()
             yield line
 
-    seqs_filename.close()
-
-# Process to detect if the file is FASTA or raw and generate the class:
-
-def sequence_generator(input_file):
+def parse(input_file):
     """Detects the type of input: raw or FASTA file and it
     generate Sequence classes for each sequence
 
     """
 
-    with open(input_file, "r") as filehandle:
-        if ">" in filehandle:
-            for identifier, sequence in FASTA_iterator(input_file):
-                return Sequence(identifier, sequence)
-        else:
-            i = 1
-            for sequence in raw_seq_iterator(input_file):
-                return Sequence("seq "+str(i), sequence)
-                i += 1
+    # with open(input_file, "r") as filehandle:
+    #     if ">" in filehandle:
+    #         for identifier, sequence in FASTA_iterator(input_file):
+    #             return seq.Sequence(identifier, sequence)
+    #     else:
+    #         i = 1
+    #         for sequence in raw_seq_iterator(input_file):
+    #             return seq.Sequence("seq "+str(i), sequence)
+    #             i += 1
 
-# Class definition:
+    sequences = []
 
-class Sequence:
+    if re.search("\.fa(sta)?$", input_file):
+        for identifier, sequence in FASTA_iterator(input_file):
+            sequences.append(seq.Sequence(identifier, sequence))
 
-    def __init__(self, identifier, sequence):
+    else:
+        i = 1
+        for sequence in raw_seq_iterator(input_file):
+            sequences.append(seq.Sequence("S{}".format(i), sequence))
+            i += 1
 
-        self.__identifier = identifier
-        self.__sequence = sequence
-
-    def get_identifier(self):
-        return self.__identifier
-
-    def get_sequence(self):
-        return self.__sequence
-
-    def __len__(self):
-        return len(self.get_sequence())
-
-    def __getitem__(self, i):
-        return self.get_sequence()[int(i)]
+    print sequences
+    return sequences
 
 
-# Execution part:
-sequence_generator("prueba.fasta")
-sequence_generator("prueba.raw")
+
