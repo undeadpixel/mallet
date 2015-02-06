@@ -70,11 +70,14 @@ TODO
     + Line-by-line parser
     + MAUL parser
     + Command line args parser (\*)
-  + **Algorithm:** Implementation of the Viterbi algorithm using internal representations of input data.
+  + **Algorithm:** 
+    + Implementation of the Viterbi algorithm using internal representations of input data.
+    + Implementation of a sample algorithm (Given a set of state paths it returns sequences)
   + **Quality assesment:** Implement Sensitivity, specificity and accuracy.
   + **Output management:** Return results from the internal representation Viterbi generates.
   + Testing
 
+# Some ideas...
 
     TGF -> Graph
     FASTA o LbL *-> Sequence
