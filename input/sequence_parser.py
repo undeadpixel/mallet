@@ -3,10 +3,10 @@ import re
 import mallet.sequence as seq
 
 def FASTA_iterator( fasta_filename ):
-    """"A Generator function that reads a FASTA file.
+    """
+    A Generator function that reads a FASTA file.
     In each iteration, the function returns a
     tuple with the  following format: (identifier, sequence).
-
     """
 
     fasta_file = open(fasta_filename, 'r')
@@ -29,11 +29,11 @@ def FASTA_iterator( fasta_filename ):
     if len(''.join(completeseq)) > 0:
         yield (identifier, ''.join(completeseq))
 
-def raw_seq_iterator(seqs_filename):
-    """A Generator function that reads a file with raw
+def RAW_iterator(seqs_filename): 
+    """
+    A Generator function that reads a file with raw
     sequences. In each iteration, the function returns a
     string with the sequence.
-
     """
     with open(seqs_filename, "r") as seqs_file:
         for line in seqs_file:
@@ -41,21 +41,10 @@ def raw_seq_iterator(seqs_filename):
             yield line
 
 def parse(input_file):
-    """Detects the type of input: raw or FASTA file and it
-    generate Sequence classes for each sequence
-
     """
-
-    # with open(input_file, "r") as filehandle:
-    #     if ">" in filehandle:
-    #         for identifier, sequence in FASTA_iterator(input_file):
-    #             return seq.Sequence(identifier, sequence)
-    #     else:
-    #         i = 1
-    #         for sequence in raw_seq_iterator(input_file):
-    #             return seq.Sequence("seq "+str(i), sequence)
-    #             i += 1
-
+    Detects the type of input: raw or FASTA file and it
+    generate Sequence classes for each sequence
+    """
     sequences = []
 
     if re.search("\.fa(sta)?$", input_file):
@@ -64,12 +53,8 @@ def parse(input_file):
 
     else:
         i = 1
-        for sequence in raw_seq_iterator(input_file):
+        for sequence in RAW_iterator(input_file):
             sequences.append(seq.Sequence("S{}".format(i), sequence))
             i += 1
 
-    print sequences
     return sequences
-
-
-
