@@ -1,3 +1,4 @@
+import random
 
 class State(object):
 
@@ -40,6 +41,18 @@ class State(object):
     def is_end(self):
         return self.short_name == "END"
 
+    def sample_transition(self):
+        """
+        Returns a random state for the given transitions using the same probability distribution. Of course, transitions should sum probability 1...
+        """
+        self.__sample_from_discrete_values(self.transitions)
+
+    def sample_emission(self):
+        """
+        Returns a sample emission from this state using the emissions probability distribution.
+        """
+        self.__sample_from_discrete_values(self.emissions)
+
     # for comparing and printing
     def simple_transitions(self):
         return dict((state.short_name, prob) for state,prob in self.transitions.iteritems())
@@ -50,12 +63,12 @@ class State(object):
                 and self.short_name == other_state.short_name and self.emissions == other_state.emissions
                 and self.simple_transitions() == other_state.simple_transitions())
 
-    # string representation
-    def __repr__(self):
-        output = "[ State: {} - {} - {} | ".format(self.long_name, self.short_name, self.id_num)
-        output += "Emissions: {} | ".format(self.emissions)
-        output += "Transitions: {}]".format(self.simple_transitions())
-        return output
+    # string legible representation
+    # def __repr__(self):
+    #     output = "[ State: {} - {} - {} | ".format(self.long_name, self.short_name, self.id_num)
+    #     output += "Emissions: {} | ".format(self.emissions)
+    #     output += "Transitions: {}]".format(self.simple_transitions())
+    #     return output
 
     # private
 
@@ -72,4 +85,12 @@ class State(object):
         probability_sum = sum([probability for (state,probability) in self.transitions.iteritems()], 0.0)
         if probability_sum != 1.0:
             raise ValueError("State {} has invalid transitions: they sum {:.4f}. It should be 1.0.".format(self.long_name, probability_sum))
+
+    def __sample_from_discrete_values(self, distribution):
+        random_probability = random.random()
+        accumulated_probability = 0.0
+        for value,prob in distribution:
+            accumulated_probability += prob
+            if accumulated_probability > random_probability:
+                return value
 

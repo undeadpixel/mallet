@@ -1,10 +1,10 @@
-import mallet.test.helpers as helpers
+import test.mallet.helpers as helpers
 import nose.tools as nt
 
 import mallet.state as state
 
 # import some fixtures
-import mallet.test.fixtures.hmm_fixtures as fixtures
+import test.fixtures.hmm_fixtures as fixtures
 
 class TestState(object):
 

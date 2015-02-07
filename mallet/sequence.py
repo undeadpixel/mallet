@@ -4,6 +4,12 @@ class Sequence:
         self.identifier = identifier
         self.sequence = sequence
 
+    def append(self, char):
+        """
+        Append some values to the sequence
+        """
+        self.sequence += char
+
     def __len__(self):
         return len(self.sequence)
 

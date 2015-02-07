@@ -21,6 +21,12 @@ class HMM(object):
 
         return True
 
+    def begin_state(self):
+        """
+        Returns the begin state if the model has it.
+        """
+        return next((state for id_num,state in self.states.iteritems() if state.is_begin()), None)
+
     # equality operator
     def __eq__(self, other_hmm):
         return self.states == other_hmm.states

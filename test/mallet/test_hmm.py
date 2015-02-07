@@ -1,10 +1,10 @@
-import mallet.test.helpers as helpers
+import test.helpers as helpers
 import nose.tools as nt
 
 import mallet.hmm as hmm
 
 # import some fixtures
-import mallet.test.fixtures.hmm_fixtures as fixtures
+import test.fixtures.hmm_fixtures as fixtures
 
 class TestHMM(object):
 
@@ -42,3 +42,11 @@ class TestHMM(object):
         subject = self.subject()
         del(subject.states[5])
         nt.assert_raises(ValueError, subject.is_valid)
+
+    def test_begin_state(self):
+        nt.assert_equals(self.subject().begin_state(), fixtures.states_with_transitions()[1])
+
+    def test_begin_state_without_begin_state(self):
+        subject = self.subject()
+        del(subject.states[1])
+        nt.assert_equals(subject.begin_state(), None)

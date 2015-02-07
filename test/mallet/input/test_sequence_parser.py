@@ -1,7 +1,7 @@
-import mallet.test.helpers as helpers
+import test.helpers as helpers
 import nose.tools as nt
 
-import mallet.test.fixtures.sequence_fixtures as fixtures
+import test.fixtures.sequence_fixtures as fixtures
 
 import mallet.sequence as seq
 import mallet.input.sequence_parser as sequence_parser

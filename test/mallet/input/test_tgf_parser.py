@@ -1,10 +1,10 @@
-import mallet.test.helpers as helpers
+import test.helpers as helpers
 import nose.tools as nt
 
 import mallet.hmm as hmm
 import mallet.input.tgf_parser as tgf
 
-import mallet.test.fixtures.hmm_fixtures as fixtures
+import test.fixtures.hmm_fixtures as fixtures
 
 class TestTGFParser(object):
 
