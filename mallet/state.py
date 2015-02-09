@@ -41,14 +41,12 @@ class State(object):
     def is_end(self):
         return self.short_name == "END"
 
-    # TODO: TEST IT!!
     def sample_transition(self):
         """
         Returns a random state for the given transitions using the same probability distribution. Of course, transitions should sum probability 1...
         """
         return self.__sample_from_discrete_values(self.transitions)
 
-    # TODO: TEST IT!!
     def sample_emission(self):
         """
         Returns a sample emission from this state using the emissions probability distribution.
