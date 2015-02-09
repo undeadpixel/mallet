@@ -1,7 +1,7 @@
 import random
 
-import hmm as h_mm
-import state, sequence
+import state
+import sequence as seq
 
 # NOTE: This function can't be tested, it is completely random :(
 
@@ -17,7 +17,8 @@ def sample(hmm, observations):
     current_state = hmm.begin_state()
     for i in range(observations):
         current_state = current_state.sample_transition()
-        # TODO: What if we reach END before time
+        if current_state.is_end():
+            break
         state_path.append(current_state.short_name)
         emission_sequence.append(current_state.sample_emission())
 

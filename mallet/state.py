@@ -41,17 +41,19 @@ class State(object):
     def is_end(self):
         return self.short_name == "END"
 
+    # TODO: TEST IT!!
     def sample_transition(self):
         """
         Returns a random state for the given transitions using the same probability distribution. Of course, transitions should sum probability 1...
         """
-        self.__sample_from_discrete_values(self.transitions)
+        return self.__sample_from_discrete_values(self.transitions)
 
+    # TODO: TEST IT!!
     def sample_emission(self):
         """
         Returns a sample emission from this state using the emissions probability distribution.
         """
-        self.__sample_from_discrete_values(self.emissions)
+        return self.__sample_from_discrete_values(self.emissions)
 
     # for comparing and printing
     def simple_transitions(self):
@@ -64,11 +66,11 @@ class State(object):
                 and self.simple_transitions() == other_state.simple_transitions())
 
     # string legible representation
-    # def __repr__(self):
-    #     output = "[ State: {} - {} - {} | ".format(self.long_name, self.short_name, self.id_num)
-    #     output += "Emissions: {} | ".format(self.emissions)
-    #     output += "Transitions: {}]".format(self.simple_transitions())
-    #     return output
+    def __repr__(self):
+        output = "[ State: {} - {} - {} | ".format(self.long_name, self.short_name, self.id_num)
+        output += "Emissions: {} | ".format(self.emissions)
+        output += "Transitions: {}]".format(self.simple_transitions())
+        return output
 
     # private
 
@@ -89,7 +91,7 @@ class State(object):
     def __sample_from_discrete_values(self, distribution):
         random_probability = random.random()
         accumulated_probability = 0.0
-        for value,prob in distribution:
+        for value,prob in distribution.iteritems():
             accumulated_probability += prob
             if accumulated_probability > random_probability:
                 return value

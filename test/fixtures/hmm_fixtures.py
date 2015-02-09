@@ -55,6 +55,7 @@ def transitions():
         5: {}
         }
 
+
 def states_with_transitions():
     states_with_transitions = states()
     transition_list = transitions()

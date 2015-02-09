@@ -17,5 +17,8 @@ class Sequence:
         return self.sequence[int(i)]
 
     def __eq__(self, other_sequence):
-    	return self.sequence == other_sequence.sequence and self.identifier == other_sequence.identifier
+        return self.sequence == other_sequence.sequence and self.identifier == other_sequence.identifier
+
+    def __repr__(self):
+        return "[{}] {}\n".format(self.identifier, self.sequence)
 
