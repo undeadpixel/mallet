@@ -34,8 +34,8 @@ def states():
 
 # transitions
 
-def transitions():
-    state_list = states()
+def transitions(state_list = None):
+    if state_list is None: state_list = states()
     return {
         1: {
             state_list[2]: 1.0
@@ -58,7 +58,7 @@ def transitions():
 
 def states_with_transitions():
     states_with_transitions = states()
-    transition_list = transitions()
+    transition_list = transitions(states_with_transitions)
     for name, state in states_with_transitions.iteritems():
         state.transitions = transition_list[state.id_num]
     return states_with_transitions

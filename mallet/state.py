@@ -1,4 +1,5 @@
 import random
+import math
 
 class State(object):
 
@@ -52,6 +53,21 @@ class State(object):
         Returns a sample emission from this state using the emissions probability distribution.
         """
         return self.__sample_from_discrete_values(self.emissions)
+
+    # TODO: Generify this a little
+    def log_transitions(self):
+        if not hasattr(self, '__log_transitions') or self.__log_transitions is None:
+            self.__log_transitions = {}
+            for state,prob in self.transitions.iteritems():
+                self.__log_transitions[state] = math.log10(prob)
+        return self.__log_transitions
+
+    def log_emissions(self):
+        if not hasattr(self, '__log_emissions') or self.__log_emissions is None:
+            self.__log_emissions = {}
+            for emission,prob in self.emissions.iteritems():
+                self.__log_emissions[emission] = math.log10(prob)
+        return self.__log_emissions
 
     # for comparing and printing
     def simple_transitions(self):
