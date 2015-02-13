@@ -90,7 +90,7 @@ class State(object):
 
     def __check_emissions_probability_sum(self):
         probability_sum = sum([probability for (name,probability) in self.emissions.iteritems()], 0.0)
-        if probability_sum != 1.0:
+        if round(probability_sum, 4) != 1.0:
             raise ValueError("State {} has invalid emissions: they sum {:.4f}. It should be 1.0.".format(self.long_name, probability_sum))
 
     def __check_short_name(self):
@@ -99,7 +99,7 @@ class State(object):
 
     def __check_transitions_probability_sum(self):
         probability_sum = sum([probability for (state,probability) in self.transitions.iteritems()], 0.0)
-        if probability_sum != 1.0:
+        if round(probability_sum, 4) != 1.00:
             raise ValueError("State {} has invalid transitions: they sum {:.4f}. It should be 1.0.".format(self.long_name, probability_sum))
 
     def __sample_from_discrete_values(self, distribution):

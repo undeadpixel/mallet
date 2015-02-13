@@ -5,8 +5,8 @@ INFINITY = float('inf')
 
 class ViterbiMatrix(object):
 
-    def __init__(self, states, sequence_length):
-        self.states = states
+    def __init__(self, hmm, sequence_length):
+        self.hmm = hmm
         self.sequence_length = sequence_length
 
         self.__initialize_matrix()
@@ -26,13 +26,32 @@ class ViterbiMatrix(object):
         if parent:
             return (parent.state, parent.position)
 
+    def get_best_state_path_and_score(self):
+        state_path = seq.Sequence("State path", "")
+        current_cell = self.get_end_cell()
+        score = current_cell.value
+        current_cell = current_cell.parent
+        while not current_cell.state.is_begin():
+            state_path.append(current_cell.state.short_name)
+            current_cell = current_cell.parent
+
+        state_path.reverse()
+        return (score, state_path)
+
+    def get_end_cell(self):
+        return self.__get(self.hmm.end_state(), self.sequence_length - 1)
+
     def __repr__(self):
         output = "\t".join(["State"] + [str(i) for i in range(self.sequence_length)]) + "\n"
-        for state, array in self.matrix.iteritems():
+        for state in sorted(self.__states(), lambda s,t: s.short_name == t.short_name ):
+            array = self.matrix[state]
             output += "{}\t".format(state.short_name) + "\t".join([str(item) for item in array]) + "\n"
         return output
 
     # private
+
+    def __states(self):
+        return self.hmm.states.values()
 
     def __get(self, state, i):
         return self.matrix[state][i]
@@ -40,19 +59,28 @@ class ViterbiMatrix(object):
     def __initialize_matrix(self):
         def create_row(state):
             return [ViterbiMatrixCell(state, i) for i in range(self.sequence_length)]
-
-        self.matrix = dict((state, create_row(state)) for state in self.states)
+        self.matrix = dict((state, create_row(state)) for state in self.__states())
 
 class ViterbiMatrixCell(object):
 
     def __init__(self, state, position):
         self.value = -INFINITY
         self.parent = None
+
         self.state = state
         self.position = position
 
     def __repr__(self):
         return "{:.2f}".format(self.value)
+
+class Alignment(object):
+    def __init__(self, sequence, state_path, score):
+        self.sequence = sequence
+        self.state_path = state_path
+        self.score = score
+
+    def __repr__(self):
+        return "({:.4f} | {} | {})".format(self.score, self.state_path, self.sequence)
 
 # methods
 
@@ -72,7 +100,7 @@ def viterbi(hmm, sequence):
     states = hmm.states.values()
     # initialize matrix adding two positions for begin and end states
     matrix_sequence = "-{}-".format(sequence.sequence)
-    matrix = ViterbiMatrix(states, len(matrix_sequence))
+    matrix = ViterbiMatrix(hmm, len(matrix_sequence))
 
     # set 0 to begin - 0 (and filling up first row)
     matrix.set(hmm.begin_state(), 0, 0.0)
@@ -101,8 +129,8 @@ def viterbi(hmm, sequence):
                 value, state = max(value_tuple_list) # by default uses the first item to compute the max
                 matrix.set(dst_state, position, value)
                 matrix.connect((dst_state, position), (state, position - 1))
-            else:
-                matrix.set(dst_state, position, -INFINITY)
 
     print matrix
     # TODO: get best sequence of states!!! (fill it)
+    score, state_path = matrix.get_best_state_path_and_score()
+    return Alignment(sequence, state_path, score)

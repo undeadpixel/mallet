@@ -1,0 +1,21 @@
+1 Begin BEGIN
+2 State1 S
+3 State2 T
+4 State3 U
+5 End END
+# transitions
+1 2 0.15
+1 3 0.85
+2 2 0.7
+2 4 0.3
+3 3 0.9
+3 5 0.1
+4 4 0.8
+4 5 0.2
+# emissions
+2 A 0.5
+2 B 0.5
+3 A 0.25
+3 B 0.75
+4 A 0.15
+4 B 0.85

@@ -10,6 +10,9 @@ class Sequence:
         """
         self.sequence += char
 
+    def reverse(self):
+        self.sequence = self.sequence[::-1]
+
     def __len__(self):
         return len(self.sequence)
 
@@ -20,5 +23,5 @@ class Sequence:
         return self.sequence == other_sequence.sequence and self.identifier == other_sequence.identifier
 
     def __repr__(self):
-        return "[{}] {}\n".format(self.identifier, self.sequence)
+        return "#{}# {}".format(self.identifier, self.sequence)
 

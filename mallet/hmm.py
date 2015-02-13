@@ -27,6 +27,12 @@ class HMM(object):
         """
         return next((state for id_num,state in self.states.iteritems() if state.is_begin()), None)
 
+    def end_state(self):
+        """
+        Returns the end state if the model has one.
+        """
+        return next((state for id_num,state in self.states.iteritems() if state.is_end()), None)
+
     # equality operator
     def __eq__(self, other_hmm):
         return self.states == other_hmm.states

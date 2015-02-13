@@ -3,6 +3,7 @@ import mallet.input.tgf_parser as tgf
 
 import mallet.sequence as seq
 
-hmm = tgf.parse("test/files/simple.tgf")
+hmm = tgf.parse("test/files/sample1.tgf")
 
-viterbi.viterbi(hmm, seq.Sequence("P1", "ABCABC"))
+result = viterbi.viterbi(hmm, seq.Sequence("P1", "AAAAAAA"))
+print result
