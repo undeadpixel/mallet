@@ -1,4 +1,4 @@
-import test.mallet.helpers as helpers
+import test.helpers as helpers
 import nose.tools as nt
 import mock
 

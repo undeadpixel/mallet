@@ -31,14 +31,14 @@ class TestViterbi(object):
 
     # rna_hairpin
 
-    def test_rna_hairpin_sequence_1(self):
-        alignment = self.subject("rna_hairpin.tgf", seq.Sequence("S1", "UACGCAUGCAU"))
-        self.assert_alignment(alignment, "NNTTTHHTTNN", -8.51)
-
-    def test_rna_hairpin_sequence_2(self):
-        alignment = self.subject("rna_hairpin.tgf", seq.Sequence("S1", "AUCAUGAC"))
-        self.assert_alignment(alignment, "NNNNNNNN", -7.305)
-
-    def test_rna_hairpin_sequence_2(self):
-        alignment = self.subject("rna_hairpin.tgf", seq.Sequence("S1", "CGCCAUAUCG"))
-        self.assert_alignment(alignment, "NTTTNNNNNN", -9.98)
+    # def test_rna_hairpin_sequence_1(self):
+    #     alignment = self.subject("rna_hairpin.tgf", seq.Sequence("S1", "UACGCAUGCAU"))
+    #     self.assert_alignment(alignment, "NNTTTHHTTNN", -8.51)
+    #
+    # def test_rna_hairpin_sequence_2(self):
+    #     alignment = self.subject("rna_hairpin.tgf", seq.Sequence("S1", "AUCAUGAC"))
+    #     self.assert_alignment(alignment, "NNNNNNNN", -7.305)
+    #
+    # def test_rna_hairpin_sequence_2(self):
+    #     alignment = self.subject("rna_hairpin.tgf", seq.Sequence("S1", "CGCCAUAUCG"))
+    #     self.assert_alignment(alignment, "NTTTNNNNNN", -9.98)
