@@ -30,12 +30,14 @@ class ViterbiMatrix(object):
         state_path = seq.Sequence("State path", "")
         current_cell = self.get_end_cell()
         score = current_cell.value
-        current_cell = current_cell.parent
-        while not current_cell.state.is_begin():
-            state_path.append(current_cell.state.short_name)
+        if score > -INFINITY:
             current_cell = current_cell.parent
-
-        state_path.reverse()
+            while not current_cell.state.is_begin():
+                state_path.append(current_cell.state.short_name)
+                current_cell = current_cell.parent
+            state_path.reverse()
+        else:
+            state_path = None
         return Alignment(self.sequence, state_path, score)
 
     def get_end_cell(self):
@@ -74,7 +76,11 @@ class ViterbiMatrixCell(object):
         self.position = position
 
     def __repr__(self):
-        return "{:.2f}".format(self.value)
+        output = ""
+        # if self.parent:
+        #     output += "({})".format(self.parent.state.short_name)
+        output += "{:.2f}".format(self.value)
+        return output
 
 class Alignment(object):
     def __init__(self, sequence, state_path, score = None):
