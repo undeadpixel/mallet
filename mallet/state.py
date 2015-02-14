@@ -54,6 +54,7 @@ class State(object):
         """
         return self.__sample_from_discrete_values(self.emissions)
 
+    # TODO: Test it!!
     # TODO: Generify this a little
     def log_transitions(self):
         if not hasattr(self, '__log_transitions') or self.__log_transitions is None:
@@ -87,6 +88,14 @@ class State(object):
         return output
 
     # private
+
+    # TODO: Move somewhere else!!
+    def __log10(self, value):
+        try:
+            log_value = math.log10(value)
+        except ValueError:
+            log_value = -float('inf')
+        return log_value
 
     def __check_emissions_probability_sum(self):
         probability_sum = sum([probability for (name,probability) in self.emissions.iteritems()], 0.0)

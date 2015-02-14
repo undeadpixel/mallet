@@ -5,9 +5,9 @@ INFINITY = float('inf')
 
 class ViterbiMatrix(object):
 
-    def __init__(self, hmm, sequence_length):
+    def __init__(self, hmm, sequence):
         self.hmm = hmm
-        self.sequence_length = sequence_length
+        self.sequence = sequence
 
         self.__initialize_matrix()
 
@@ -26,7 +26,7 @@ class ViterbiMatrix(object):
         if parent:
             return (parent.state, parent.position)
 
-    def get_best_state_path_and_score(self):
+    def get_best_alignment(self):
         state_path = seq.Sequence("State path", "")
         current_cell = self.get_end_cell()
         score = current_cell.value
@@ -36,13 +36,13 @@ class ViterbiMatrix(object):
             current_cell = current_cell.parent
 
         state_path.reverse()
-        return (score, state_path)
+        return Alignment(self.sequence, state_path, score)
 
     def get_end_cell(self):
-        return self.__get(self.hmm.end_state(), self.sequence_length - 1)
+        return self.__get(self.hmm.end_state(), self.__sequence_length() - 1)
 
     def __repr__(self):
-        output = "\t".join(["State"] + [str(i) for i in range(self.sequence_length)]) + "\n"
+        output = "\t".join(["State"] + [str(i) for i in range(self.__sequence_length())]) + "\n"
         for state in sorted(self.__states(), lambda s,t: s.short_name == t.short_name ):
             array = self.matrix[state]
             output += "{}\t".format(state.short_name) + "\t".join([str(item) for item in array]) + "\n"
@@ -56,9 +56,12 @@ class ViterbiMatrix(object):
     def __get(self, state, i):
         return self.matrix[state][i]
 
+    def __sequence_length(self):
+        return len(self.sequence) + 2
+
     def __initialize_matrix(self):
         def create_row(state):
-            return [ViterbiMatrixCell(state, i) for i in range(self.sequence_length)]
+            return [ViterbiMatrixCell(state, i) for i in range(self.__sequence_length())]
         self.matrix = dict((state, create_row(state)) for state in self.__states())
 
 class ViterbiMatrixCell(object):
@@ -74,7 +77,7 @@ class ViterbiMatrixCell(object):
         return "{:.2f}".format(self.value)
 
 class Alignment(object):
-    def __init__(self, sequence, state_path, score):
+    def __init__(self, sequence, state_path, score = None):
         self.sequence = sequence
         self.state_path = state_path
         self.score = score
@@ -98,39 +101,44 @@ def viterbi(hmm, sequence):
     Given a sequence and a HMM, returns the maximal state path.
     """
     states = hmm.states.values()
+
     # initialize matrix adding two positions for begin and end states
     matrix_sequence = "-{}-".format(sequence.sequence)
-    matrix = ViterbiMatrix(hmm, len(matrix_sequence))
+    matrix = ViterbiMatrix(hmm, sequence)
 
-    # set 0 to begin - 0 (and filling up first row)
+    # Initialisation step
     matrix.set(hmm.begin_state(), 0, 0.0)
 
-    # we only run through the sequence taking into account that we have done the first row (1...N)
-    num_iterations = len(matrix_sequence)
-    for position in range(1,num_iterations):
-        # we get the current char of the sequence (knowing that we have one position more in the matrix before)
+    # Recursion & termination steps
+    for position in range(1, len(matrix_sequence)):
         current_char = matrix_sequence[position]
 
         # we save all probabilities for all states in a hash to then get the max for each state
         state_values = dict((state, []) for state in states)
+
+        # Calculating all possible values for each cell
         for state in states:
             # as we don't have the anterior transitions but the posterior for each state, we have to do it the opposite way
-            for dst_state,transition_probability in state.log_transitions().iteritems():
-                # TODO: move to State class!!!
-                if dst_state.is_end():
-                    emission_value = 0.0
-                else:
+            for dst_state,transition_value in state.log_transitions().iteritems():
+                # get parent state cell value
+                previous_state_value = matrix.get(state, position - 1)
+                log_value = transition_value + previous_state_value
+                # add emission value if not in the termination step
+                if not dst_state.is_end():
+                    # END state has no emissions
                     emission_value = dst_state.log_emissions().get(current_char, -INFINITY)
-                log_value = transition_probability + matrix.get(state, position - 1) + emission_value
+                    log_value += emission_value
                 state_values[dst_state].append((log_value, state))
-        # after iterating through all states and all possible transitions we get the best and add them to the matrix
+
+        # Maximisation step
         for dst_state, value_tuple_list in state_values.iteritems():
             if len(value_tuple_list) > 0:
-                value, state = max(value_tuple_list) # by default uses the first item to compute the max
+                # calculate the max score
+                value, state = max(value_tuple_list) # by default uses the first item of each tuple to compute the max
+                # set the score in the matrix row
                 matrix.set(dst_state, position, value)
+                # connect the matrix row to its parent
                 matrix.connect((dst_state, position), (state, position - 1))
 
-    print matrix
-    # TODO: get best sequence of states!!! (fill it)
-    score, state_path = matrix.get_best_state_path_and_score()
-    return Alignment(sequence, state_path, score)
+    # Traceback step
+    return matrix.get_best_alignment()
