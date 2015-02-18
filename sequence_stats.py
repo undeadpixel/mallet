@@ -94,6 +94,34 @@ def mutual_information(frequencies, joint_frequencies):
 
     return results
 
+def joint_entropy(joint_frequencies):
+    num_positions = len(sequences[0])
+    results = dict(((position, position + 1), 0.0) for position in range(num_positions - 1))
+
+    for position in range(num_positions - 1):
+        next_position = position + 1
+        position_key = (position, next_position)
+
+        for monomer in monomers:
+            for other_monomer in monomers:
+                joint_frequency = joint_frequencies[position_key][(monomer, other_monomer)]
+
+                results[position_key] -= joint_frequency*safe_log2(joint_frequency)
+
+    return results
+
+def mi_distance(mutual_informations, joint_entropies):
+    num_positions = len(sequences[0])
+    results = dict(((position, position + 1), 0.0) for position in range(num_positions - 1))
+
+    for position in range(num_positions - 1):
+        next_position = position + 1
+        position_key = (position, next_position)
+
+        results[position_key] = joint_entropies[position_key] - mutual_informations[position_key]
+
+    return results
+
 def shannon_divergence(frequencies):
 
     def shannon_factor(p,q):
@@ -111,6 +139,9 @@ def shannon_divergence(frequencies):
             q_x = frequencies[position + 1][monomer]
             results[position_key] += 0.5*(shannon_factor(p_x, q_x) + shannon_factor(q_x, p_x))
 
+    for position_key,value in results.iteritems():
+        results[position_key] = math.sqrt(value)
+
     return results
 
 def print_positions_list(positions_list):
@@ -121,10 +152,8 @@ def print_positions_list(positions_list):
         print "{} - {:.04f}".format(positions, value)
 
 def safe_log2(value):
-    if value != 0.0:
-        return math.log(value, 2)
-    else:
-        return -1e50
+    if value == 0.0: value = 1e-50
+    return math.log(value, 2)
 
 def safe_div(numerator, denominator):
     if denominator == 0.0: denominator = 1e-50
@@ -138,10 +167,18 @@ if __name__ == "__main__":
     joint_frequencies = joint_frequencies(sequences, monomers)
 
     mutual_informations = mutual_information(frequencies, joint_frequencies)
-    jensen_shannon = shannon_divergence(frequencies)
+    joint_entropies = joint_entropy(joint_frequencies)
+    mi_distances = mi_distance(mutual_informations, joint_entropies)
+    jensen_shannons = shannon_divergence(frequencies)
     
-    print "> Mutual Information"
-    print_positions_list(mutual_informations)
+    # print "> Mutual Information"
+    # print_positions_list(mutual_informations)
+    #
+    # print "> Joint Entropy"
+    # print_positions_list(joint_entropies)
+
+    print "> Mutual Information distances"
+    print_positions_list(mi_distances)
 
     print "> Jensen-Shannon"
-    print_positions_list(jensen_shannon)
+    print_positions_list(jensen_shannons)
