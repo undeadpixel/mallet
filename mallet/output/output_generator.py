@@ -17,6 +17,7 @@ def output_file_generator(results_list, outfile=None):
         with gzip.open(outfile, "wb") as o:
             for output_object in results_list:
                 o.write(repr(output_object).encode('utf-8'))
+
     else:
         with open(outfile, 'w') as o:
             for output_object in results_list:
