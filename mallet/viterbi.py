@@ -1,5 +1,6 @@
 import pdb
 import sequence as seq
+import alignment
 
 INFINITY = float('inf')
 
@@ -38,7 +39,7 @@ class ViterbiMatrix(object):
             state_path.reverse()
         else:
             state_path = None
-        return Alignment(self.sequence, state_path, score)
+        return alignment.Alignment(self.sequence, state_path, score)
 
     def get_end_cell(self):
         return self.__get(self.hmm.end_state(), self.__sequence_length() - 1)
@@ -81,15 +82,6 @@ class ViterbiMatrixCell(object):
         #     output += "({})".format(self.parent.state.short_name)
         output += "{:.2f}".format(self.value)
         return output
-
-class Alignment(object):
-    def __init__(self, sequence, state_path, score = None):
-        self.sequence = sequence
-        self.state_path = state_path
-        self.score = score
-
-    def __repr__(self):
-        return "({:.4f} | {} | {})".format(self.score, self.state_path, self.sequence)
 
 # methods
 
