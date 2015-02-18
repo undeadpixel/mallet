@@ -1,6 +1,8 @@
+#!/usr/bin/env python
+
 class output_alignment:
     """
-    Class including some interesting functions to create the 
+    Class including some interesting functions to create the
     output file mallet.
     """
 
