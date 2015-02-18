@@ -122,6 +122,21 @@ def mi_distance(mutual_informations, joint_entropies):
 
     return results
 
+def mi_ratio(mutual_informations, joint_entropies):
+    num_positions = len(sequences[0])
+    results = dict(((position, position + 1), 0.0) for position in range(num_positions - 1))
+
+    for position in range(num_positions - 1):
+        next_position = position + 1
+        position_key = (position, next_position)
+
+        if joint_entropies[position_key] != 0.0:
+            results[position_key] =  mutual_informations[position_key]/joint_entropies[position_key]
+        else:
+            results[position_key] = 1.0
+
+    return results
+
 def shannon_divergence(frequencies):
 
     def shannon_factor(p,q):
@@ -179,17 +194,20 @@ if __name__ == "__main__":
     mutual_informations = mutual_information(frequencies, joint_frequencies)
     joint_entropies = joint_entropy(joint_frequencies)
     mi_distances = mi_distance(mutual_informations, joint_entropies)
+    mi_ratios = mi_ratio(mutual_informations, joint_entropies)
     jensen_shannons = shannon_divergence(frequencies)
     
-    # print "> Mutual Information"
-    # print_positions_list(mutual_informations)
-    #
-    # print "> Joint Entropy"
-    # print_positions_list(joint_entropies)
+    print "> Mutual Information"
+    print_positions_list(mutual_informations)
 
-    print "> Mutual Information distances"
-    print_positions_list(mi_distances)
-    print "> Jensen-Shannon"
-    print_positions_list(jensen_shannons)
+    print "> Joint Entropy"
+    print_positions_list(joint_entropies)
+
+    # print "> Mutual Information distances"
+    # print_positions_list(mi_distances)
+    print "> Mutual Information ratios"
+    print_positions_list(mi_ratios)
+    # print "> Jensen-Shannon"
+    # print_positions_list(jensen_shannons)
 
     print_csv(mi_distances, jensen_shannons)
