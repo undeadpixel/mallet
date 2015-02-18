@@ -151,6 +151,16 @@ def print_positions_list(positions_list):
     for positions,value in positions_list:
         print "{} - {:.04f}".format(positions, value)
 
+def print_csv(mi_distances, jensen_shannons):
+
+    with open("output.csv", "w") as out_fd:
+        out_fd.write("position\tmi_distance\tjensen_shannon_distance\n")
+        keys = mi_distances.keys()
+        keys = sorted(keys)
+        for positions in keys:
+            new_positions = (positions[0] + 1, positions[1]+1)
+            out_fd.write("{}\t{:.4f}\t{:.4f}\n".format(new_positions, mi_distances[positions], jensen_shannons[positions]))
+
 def safe_log2(value):
     if value == 0.0: value = 1e-50
     return math.log(value, 2)
@@ -179,6 +189,7 @@ if __name__ == "__main__":
 
     print "> Mutual Information distances"
     print_positions_list(mi_distances)
-
     print "> Jensen-Shannon"
     print_positions_list(jensen_shannons)
+
+    print_csv(mi_distances, jensen_shannons)
