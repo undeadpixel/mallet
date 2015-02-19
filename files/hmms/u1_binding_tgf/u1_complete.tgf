@@ -1,14 +1,14 @@
 1 Begin BEGIN
 2 Exon E
-3 3position_before_ss E
-4 2position_before_ss E
-5 1position_before_ss E
-6 Splice_site S
-7 1position_after_ss I
-8 2position_after_ss I
-9 3position_after_ss I
-10 4position_after_ss I
-11 5position_after_ss I
+3 3position_before_ss 2
+4 2position_before_ss 3
+5 1position_before_ss 4
+6 Splice_site 5
+7 1position_after_ss 6
+8 2position_after_ss 7
+9 3position_after_ss 8
+10 4position_after_ss 9
+11 5position_after_ss 0
 12 Intron I
 13 End END
 # transitions
@@ -42,7 +42,7 @@
 5 A 0.0945
 5 C 0.0303
 5 G 0.8069
-5 T 0.0.0683
+5 T 0.0683
 6 G 0.9999
 6 T 0.0001
 7 A 0.0001
