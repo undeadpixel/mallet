@@ -37,7 +37,7 @@ def RAW_iterator(seqs_filename):
     """
     with open(seqs_filename, "r") as seqs_file:
         for line in seqs_file:
-            yield line
+            yield line.strip()
 
 def parse(input_file):
     """

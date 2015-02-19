@@ -10,7 +10,7 @@ def write(alignments, out_filename = None):
 
     # TODO: write real MALLET file
     def format_alignment(alignment):
-        repr(alignment)
+        return "# {}\n# {:.4f}\n\n{}\n{}\n\n".format(alignment.sequence.identifier, alignment.score, alignment.sequence.sequence, alignment.state_path.sequence)
 
     write_bytes = lambda text: fd.write(text.encode('utf-8'))
     write_text = lambda text: fd.write(text)
@@ -26,7 +26,6 @@ def write(alignments, out_filename = None):
             fd = open(out_filename, 'w')
 
     for alignment in alignments:
-        # TODO: write real MALLET file
         write_function(format_alignment(alignment))
 
     fd.close()

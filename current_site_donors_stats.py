@@ -4,9 +4,9 @@ import mallet.input.tgf_parser as tgf
 import mallet.input.sequence_parser as seq_parser
 
 sequences = seq_parser.parse("files/sequences/context_real_donors.raw")
-hmm = tgf.parse("files/hmms/toy_model.tgf")
+hmm = tgf.parse("files/hmms/u1_binding_tgf/u1_complete.tgf")
 
-correct_state_path = seq.Sequence("State path", "E"*50 + "5" + "I"*35)
+correct_state_path = seq.Sequence("State path", "EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE234*67890IIIIIIIIIIIIIIIIIIIIIIIIIIIIII")
 
 def print_percent(number):
     print "{:.4f} %".format(number*100.0)

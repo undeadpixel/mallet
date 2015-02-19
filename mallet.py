@@ -6,6 +6,7 @@ import mallet.sample as sample
 import mallet.viterbi as viterbi
 import mallet.input.tgf_parser as tgf
 import mallet.input.sequence_parser as seq_parser
+import mallet.output.mallet_writer as mallet_writer
 
 def parse_args():
     if len(sys.argv) < 2:
@@ -35,4 +36,4 @@ if __name__ == '__main__':
         hmm = tgf.parse(args[0])
         sequences = seq_parser.parse(args[1])
 
-        print viterbi.viterbi_all(hmm, sequences)
+        mallet_writer.write(viterbi.viterbi_all(hmm, sequences))
