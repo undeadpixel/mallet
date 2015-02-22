@@ -1,5 +1,4 @@
-import gzip
-import sys
+import gzip, sys, re
 
 def write(alignments, out_filename = None):
     """
@@ -8,9 +7,29 @@ def write(alignments, out_filename = None):
     If no output defined, print the results in the command line.
     """
 
-    # TODO: write real MALLET file
+    def partition_sequence(sequence):
+        chunks = re.split("(.{80})", sequence) # split in 80 char chunks
+        return filter(None, chunks) # remove empty chunks
+
     def format_alignment(alignment):
-        return "# {}\n# {:.4f}\n\n{}\n{}\n\n".format(alignment.sequence.identifier, alignment.score, alignment.sequence.sequence, alignment.state_path.sequence)
+        output = "# {}\n".format(alignment.sequence.identifier)
+        if alignment.state_path:
+            output += "# {:.4f}\n\n".format(alignment.score)
+        else:
+            output += "# -\n\n"
+
+        # divide alignment and state path in 80 char chunks
+        partitioned_sequence = partition_sequence(alignment.sequence.sequence)
+        if alignment.state_path:
+            partitioned_state_path = partition_sequence(alignment.state_path.sequence)
+        for chunk in range(len(partitioned_sequence)):
+            output += "{}\n".format(partitioned_sequence[chunk])
+            if alignment.state_path:
+                output += "{}\n".format(partitioned_state_path[chunk])
+            output += "\n"
+
+        return output
+
 
     write_bytes = lambda text: fd.write(text.encode('utf-8'))
     write_text = lambda text: fd.write(text)

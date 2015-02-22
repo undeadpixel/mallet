@@ -9,7 +9,7 @@ import mallet.viterbi as viterbi
 class TestViterbi(object):
 
     def subject(self, hmm_filename, sequence):
-        return viterbi.viterbi(tgf.parse("test/files/{}".format(hmm_filename)), sequence)
+        return viterbi.viterbi(tgf.parse("test/files/tgf/{}".format(hmm_filename)), sequence)
 
     def assert_alignment(self, alignment, state_path, score):
         nt.assert_equals(alignment.state_path, seq.Sequence("State path", state_path))

@@ -9,7 +9,7 @@ import test.fixtures.hmm_fixtures as fixtures
 class TestTGFParser(object):
 
     def subject(self, filename = "simple.tgf"):
-        return tgf.parse("test/files/{}".format(filename))
+        return tgf.parse("test/files/tgf/{}".format(filename))
 
     def test_it_returns_a_hmm(self):
         helpers.assert_type(self.subject(), hmm.HMM)

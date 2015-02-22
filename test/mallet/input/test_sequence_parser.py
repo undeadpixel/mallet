@@ -9,7 +9,7 @@ import mallet.input.sequence_parser as sequence_parser
 class TestSequenceParser(object):
 
     def subject(self, filename = "simple.fasta"):
-        return sequence_parser.parse("test/files/{}".format(filename))
+        return sequence_parser.parse("test/files/sequences/{}".format(filename))
 
     def test_parse_list_sequences(self):
         result = self.subject()
