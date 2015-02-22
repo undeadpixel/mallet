@@ -46,13 +46,13 @@ class State(object):
         """
         Returns a random state for the given transitions using the same probability distribution. Of course, transitions should sum probability 1...
         """
-        return self.__sample_from_discrete_values(self.transitions)
+        return self.__sample_from_discrete_values(self.__transition_items())
 
     def sample_emission(self):
         """
         Returns a sample emission from this state using the emissions probability distribution.
         """
-        return self.__sample_from_discrete_values(self.emissions)
+        return self.__sample_from_discrete_values(self.__emission_items())
 
     # TODO: Test it!!
     # TODO: Generify this a little
@@ -111,10 +111,18 @@ class State(object):
         if round(probability_sum, 4) != 1.00:
             raise ValueError("State {} has invalid transitions: they sum {:.4f}. It should be 1.0.".format(self.long_name, probability_sum))
 
+
+    # NOTE: This is used to force order on transitions and emissions. If not used, we have that the dict order may change on different executions, thus giving different samples for the same probabilities.
+    def __transition_items(self):
+        return sorted(self.transitions.items(), key=lambda i: i[0].short_name)
+
+    def __emission_items(self):
+        return sorted(self.emissions.items())
+
     def __sample_from_discrete_values(self, distribution):
         random_probability = random.random()
         accumulated_probability = 0.0
-        for value,prob in distribution.iteritems():
+        for value,prob in distribution:
             accumulated_probability += prob
             if accumulated_probability > random_probability:
                 return value

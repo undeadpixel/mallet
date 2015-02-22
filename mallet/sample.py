@@ -2,6 +2,7 @@ import random
 
 import state
 import sequence as seq
+import alignment
 
 # NOTE: This function can't be tested, it is completely random :(
 
@@ -12,7 +13,7 @@ def sample(hmm, observations):
     random.seed() # force reseeding
 
     state_path = seq.Sequence("State path", "")
-    emission_sequence = seq.Sequence("Emission sequence", "")
+    emission_sequence = seq.Sequence("Sequence", "")
 
     current_state = hmm.begin_state()
     for i in range(observations):
@@ -22,4 +23,4 @@ def sample(hmm, observations):
         state_path.append(current_state.short_name)
         emission_sequence.append(current_state.sample_emission())
 
-    return (state_path, emission_sequence)
+    return alignment.Alignment(emission_sequence, state_path)

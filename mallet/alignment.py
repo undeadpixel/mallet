@@ -1,10 +1,10 @@
-class Alignment:
+class Alignment(object):
     """
     Class including some interesting functions to create the
     output file mallet.
     """
 
-    def __init__(self, sequence, state_path, score):
+    def __init__(self, sequence, state_path, score = None):
         self.score = score
         self.sequence = sequence
         self.state_path = state_path
@@ -26,4 +26,16 @@ class Alignment:
         return x and y and z
 
     def __repr__(self):
-        return "Score: {:.4f}\nSequence:\n{}\nPath:\n{}\n\n".format(self.score, self.sequence, self.state_path)
+        output = ""
+        if self.score:
+            output += "[{:.4f}]".format(self.score)
+        else:
+            output += "[-]"
+        output += "[{}|".format(self.sequence.sequence)
+
+        if self.state_path:
+            output += "{}]".format(self.state_path.sequence)
+        else:
+            output += "-]"
+        return output
+        # return "Score: {:.4f}\nSequence:\n{}\nPath:\n{}\n\n".format(self.score, self.sequence, self.state_path)

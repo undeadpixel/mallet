@@ -14,7 +14,9 @@ def write(alignments, out_filename = None):
     def format_alignment(alignment):
         output = "# {}\n".format(alignment.sequence.identifier)
         if alignment.state_path:
-            output += "# {:.4f}\n\n".format(alignment.score)
+            if alignment.score:
+                output += "# {:.4f}\n".format(alignment.score)
+            output += "\n"
         else:
             output += "# -\n\n"
 
