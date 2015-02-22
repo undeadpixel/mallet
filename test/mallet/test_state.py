@@ -9,8 +9,12 @@ import test.fixtures.hmm_fixtures as fixtures
 
 class TestState(object):
 
-    def subject(self, num_id = 1, long_name = "Test state", short_name = "S", emissions = fixtures.emissions()[0], transitions = fixtures.transitions()[2]):
+    def subject(self, num_id = 1, long_name = "Test state", short_name = "S", emissions = None, transitions = None):
+        if emissions is None: emissions = fixtures.emissions()[0]
+        if transitions is None: transitions = fixtures.transitions()[2]
         return state.State(num_id, long_name, short_name, emissions, transitions)
+
+    # VALIDITY
 
     def test_is_valid_state(self):
         assert(self.subject().is_valid())
@@ -27,25 +31,54 @@ class TestState(object):
     def test_is_valid_state_transitions(self):
         assert(self.subject().is_valid())
 
-    # TODO: Solve bug in sample
-    # @mock.patch('random.random')
-    # def test_sample_emission(self, random_mock):
-    #     random_mock.return_value = 0.2
-    #     nt.assert_equals(self.subject().sample_emission(), "A")
-    #
-    # @mock.patch('random.random')
-    # def test_sample_emission_with_higher_random_value(self, random_mock):
-    #     random_mock.return_value = 0.8
-    #     nt.assert_equals(self.subject().sample_emission(), "B")
-    #
-    # @mock.patch('random.random')
-    # def test_sample_transition(self, random_mock):
-    #     random_mock.return_value = 0.2
-    #     nt.assert_equals(self.subject().sample_transition(), fixtures.states()[2])
-    #
-    # @mock.patch('random.random')
-    # def test_sample_transition_with_higher_random_value(self, random_mock):
-    #     random_mock.return_value = 0.9
-    #     nt.assert_equals(self.subject().sample_transition(), fixtures.states()[3])
+    # SAMPLE
+
+    @mock.patch('random.random', return_value = 0.2)
+    def test_sample_emission(self, random_mock):
+        nt.assert_equals(self.subject().sample_emission(), "A")
+
+    @mock.patch('random.random', return_value = 0.8)
+    def test_sample_emission_with_higher_random_value(self, random_mock):
+        nt.assert_equals(self.subject().sample_emission(), "C")
+
+    @mock.patch('random.random', return_value = 0.2)
+    def test_sample_transition(self, random_mock):
+        nt.assert_equals(self.subject().sample_transition(), fixtures.states()[2])
+
+    @mock.patch('random.random', return_value = 0.9)
+    def test_sample_transition_with_higher_random_value(self, random_mock):
+        nt.assert_equals(self.subject().sample_transition(), fixtures.states()[3])
+
+    # LOG DISTRIBUTIONS
+
+    def test_log_transitions(self):
+        subject = self.subject()
+        log_transitions = subject.log_transitions()
+        transition_states = subject.transitions.keys()
+        nt.assert_almost_equal(log_transitions[transition_states[0]], -0.3, 2)
+        nt.assert_almost_equal(log_transitions[transition_states[1]], -0.3, 2)
+
+    def test_log_transitions_with_zero_transitions(self):
+        subject = self.subject(transitions = fixtures.fake_transitions()[1])
+        log_transitions = subject.log_transitions()
+        transition_states = subject.transitions.keys()
+        nt.assert_almost_equal(log_transitions[transition_states[0]], 0.0, 2)
+        nt.assert_almost_equal(log_transitions[transition_states[1]], -1e50, 2)
+
+    def test_log_emissions(self):
+        subject = self.subject()
+        log_emissions = subject.log_emissions()
+        nt.assert_almost_equal(log_emissions['A'], -0.6, 2)
+        nt.assert_almost_equal(log_emissions['B'], -0.6, 2)
+        nt.assert_almost_equal(log_emissions['C'], -0.3, 2)
+
+    def test_log_emissions_with_zero_emissions(self):
+        subject = self.subject(emissions = fixtures.emissions()[4])
+        log_emissions = subject.log_emissions()
+        nt.assert_almost_equal(log_emissions['A'], -1e50, 2)
+        nt.assert_almost_equal(log_emissions['B'], -0.3, 2)
+        nt.assert_almost_equal(log_emissions['C'], -0.3, 2)
+
+
 
 

@@ -8,7 +8,8 @@ def emissions():
         {'A': 0.25, 'B': 0.25, 'C': 0.5},
         {'A': 0.55, 'B': 0.15, 'C': 0.3},
         {'A': 0.675, 'B': 0.20, 'C': 0.125},
-        {'B': 0.5, 'C': 0.5}
+        {'B': 0.5, 'C': 0.5},
+        {'A': 0.0, 'B': 0.5, 'C': 0.5}
         ]
 
 def invalid_emissions():
@@ -55,6 +56,14 @@ def transitions(state_list = None):
         5: {}
         }
 
+def fake_transitions(state_list = None):
+    if state_list is None: state_list = states()
+    return {
+        1: {
+            state_list[2]: 1.0,
+            state_list[3]: 0.0
+            }
+        }
 
 def states_with_transitions():
     states_with_transitions = states()

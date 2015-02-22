@@ -1,5 +1,6 @@
 import random
-import math
+import safe_math
+
 
 class State(object):
 
@@ -20,13 +21,16 @@ class State(object):
         self.emissions = emissions
         self.transitions = transitions
 
+        # some internal attributes
+        self.__log_transitions = None
+        self.__log_emissions = None
+
     def is_valid(self):
         """
         Checks if the HMM is valid and raises an error if not:
             + Checks if emissions sum up 1.
             + Checks short name has only one letter.
         """
-        # TODO: Why don't we create a class hierarchy?
         if not self.is_begin() and not self.is_end():
             self.__check_short_name()
             self.__check_emissions_probability_sum()
@@ -37,9 +41,15 @@ class State(object):
         return True
 
     def is_begin(self):
+        """
+        Returns true when state is BEGIN.
+        """
         return self.short_name == "BEGIN"
 
     def is_end(self):
+        """
+        Returns true when state is END.
+        """
         return self.short_name == "END"
 
     def sample_transition(self):
@@ -54,20 +64,20 @@ class State(object):
         """
         return self.__sample_from_discrete_values(self.__emission_items())
 
-    # TODO: Test it!!
-    # TODO: Generify this a little
     def log_transitions(self):
-        if not hasattr(self, '__log_transitions') or self.__log_transitions is None:
-            self.__log_transitions = {}
-            for state,prob in self.transitions.iteritems():
-                self.__log_transitions[state] = math.log10(prob)
+        """
+        Returns a dict with transition probabilities converted to log10.
+        """
+        if self.__log_transitions is None:
+            self.__log_transitions = self.__log_distribution(self.transitions)
         return self.__log_transitions
 
     def log_emissions(self):
-        if not hasattr(self, '__log_emissions') or self.__log_emissions is None:
-            self.__log_emissions = {}
-            for emission,prob in self.emissions.iteritems():
-                self.__log_emissions[emission] = math.log10(prob)
+        """
+        Returns a dict with emission probabilities converted to log10.
+        """
+        if self.__log_emissions is None:
+            self.__log_emissions = self.__log_distribution(self.emissions)
         return self.__log_emissions
 
     # for comparing and printing
@@ -89,14 +99,6 @@ class State(object):
 
     # private
 
-    # TODO: Move somewhere else!!
-    def __log10(self, value):
-        try:
-            log_value = math.log10(value)
-        except ValueError:
-            log_value = -float('inf')
-        return log_value
-
     def __check_emissions_probability_sum(self):
         probability_sum = sum([probability for (name,probability) in self.emissions.iteritems()], 0.0)
         if round(probability_sum, 4) != 1.0:
@@ -111,6 +113,11 @@ class State(object):
         if round(probability_sum, 4) != 1.00:
             raise ValueError("State {} has invalid transitions: they sum {:.4f}. It should be 1.0.".format(self.long_name, probability_sum))
 
+    def __log_distribution(self, distribution):
+        log_distribution = {}
+        for state,prob in distribution.iteritems():
+            log_distribution[state] = safe_math.log10(prob)
+        return log_distribution
 
     # NOTE: This is used to force order on transitions and emissions. If not used, we have that the dict order may change on different executions, thus giving different samples for the same probabilities.
     def __transition_items(self):
