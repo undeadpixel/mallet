@@ -1,5 +1,6 @@
 import gzip, sys, re
 
+
 def write(alignments, out_filename = None):
     """
     Given a list of output_alignment objects, generate an output file.

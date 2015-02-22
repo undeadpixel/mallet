@@ -52,18 +52,18 @@ class TestState(object):
     # LOG DISTRIBUTIONS
 
     def test_log_transitions(self):
-        subject = self.subject()
-        log_transitions = subject.log_transitions()
-        transition_states = subject.transitions.keys()
-        nt.assert_almost_equal(log_transitions[transition_states[0]], -0.3, 2)
-        nt.assert_almost_equal(log_transitions[transition_states[1]], -0.3, 2)
+        states = fixtures.states()
+        transitions = fixtures.transitions(states)[2]
+        log_transitions = self.subject(transitions = transitions).log_transitions()
+        nt.assert_almost_equal(log_transitions[states[2]], -0.3, 2)
+        nt.assert_almost_equal(log_transitions[states[3]], -0.3, 2)
 
     def test_log_transitions_with_zero_transitions(self):
-        subject = self.subject(transitions = fixtures.fake_transitions()[1])
-        log_transitions = subject.log_transitions()
-        transition_states = subject.transitions.keys()
-        nt.assert_almost_equal(log_transitions[transition_states[0]], 0.0, 2)
-        nt.assert_almost_equal(log_transitions[transition_states[1]], -1e50, 2)
+        states = fixtures.states()
+        transitions = fixtures.fake_transitions(states)[1]
+        log_transitions = self.subject(transitions = transitions).log_transitions()
+        nt.assert_almost_equal(log_transitions[states[2]], 0.0, 2)
+        nt.assert_almost_equal(log_transitions[states[3]], -1e50, 2)
 
     def test_log_emissions(self):
         subject = self.subject()

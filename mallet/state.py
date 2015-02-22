@@ -22,8 +22,10 @@ class State(object):
         self.transitions = transitions
 
         # some internal attributes
-        self.__log_transitions = None
-        self.__log_emissions = None
+        self.__log_transitions_cache = None
+        self.__log_emissions_cache = None
+        self.__transition_items_cache = None
+        self.__emission_items_cache = None
 
     def is_valid(self):
         """
@@ -68,17 +70,17 @@ class State(object):
         """
         Returns a dict with transition probabilities converted to log10.
         """
-        if self.__log_transitions is None:
-            self.__log_transitions = self.__log_distribution(self.transitions)
-        return self.__log_transitions
+        if self.__log_transitions_cache is None:
+            self.__log_transitions_cache = self.__log_distribution(self.transitions)
+        return self.__log_transitions_cache
 
     def log_emissions(self):
         """
         Returns a dict with emission probabilities converted to log10.
         """
-        if self.__log_emissions is None:
-            self.__log_emissions = self.__log_distribution(self.emissions)
-        return self.__log_emissions
+        if self.__log_emissions_cache is None:
+            self.__log_emissions_cache = self.__log_distribution(self.emissions)
+        return self.__log_emissions_cache
 
     # for comparing and printing
     def simple_transitions(self):
@@ -121,10 +123,14 @@ class State(object):
 
     # NOTE: This is used to force order on transitions and emissions. If not used, we have that the dict order may change on different executions, thus giving different samples for the same probabilities.
     def __transition_items(self):
-        return sorted(self.transitions.items(), key=lambda i: i[0].short_name)
+        if self.__transition_items_cache is None:
+            self.__transition_items_cache = sorted(self.transitions.items(), key=lambda i: i[0].short_name)
+        return self.__transition_items_cache
 
     def __emission_items(self):
-        return sorted(self.emissions.items())
+        if self.__emission_items_cache is None:
+            self.__emission_items_cache = sorted(self.emissions.items())
+        return self.__emission_items_cache
 
     def __sample_from_discrete_values(self, distribution):
         random_probability = random.random()

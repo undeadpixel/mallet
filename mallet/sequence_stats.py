@@ -1,20 +1,11 @@
-#!/usr/bin/env python
-
 import sys
 import math
 
-import mallet.input.sequence_parser as seq_parser
+import safe_math
 
-def parse_args():
-    if len(sys.argv) < 2:
-        raise RuntimeError("Invalid arguments")
+# TODO: Unit testing
 
-    filename = sys.argv[1]
-    monomers = sys.argv[2]
-
-    return (filename, monomers)
-
-def position_freqs(sequences, monomers, with_pseudocounts = False):
+def position_frequencies(sequences, alphabet, with_pseudocounts = False):
 
     start_count = 0.0
     if with_pseudocounts: start_count = 1.0
@@ -22,7 +13,7 @@ def position_freqs(sequences, monomers, with_pseudocounts = False):
     num_positions = len(sequences[0])
 
     # initialize frequencies dictionary
-    frequencies = dict((position, dict((monomer, start_count) for monomer in monomers)) for position in range(num_positions))
+    frequencies = dict((position, dict((monomer, start_count) for monomer in alphabet)) for position in range(num_positions))
 
     # count matches
     for position in range(num_positions):
@@ -31,19 +22,18 @@ def position_freqs(sequences, monomers, with_pseudocounts = False):
             frequencies[position][monomer] += 1
 
     num_sequences = len(sequences)
-    if with_pseudocounts: num_sequences += len(monomers)
+    if with_pseudocounts: num_sequences += len(alphabet)
 
     # obtain probabilities
-    for position,monomers in frequencies.iteritems():
-        for monomer,count in monomers.iteritems():
+    for position,alphabet in frequencies.iteritems():
+        for monomer,count in alphabet.iteritems():
             frequencies[position][monomer] /= num_sequences
 
     return frequencies
 
-def joint_frequencies(sequences, monomers, with_pseudocounts = False):
+def joint_frequencies(sequences, alphabet, with_pseudocounts = False):
     start_count = 0.0
     if with_pseudocounts: start_count = 1.0
-
 
     num_positions = len(sequences[0])
 
@@ -51,14 +41,14 @@ def joint_frequencies(sequences, monomers, with_pseudocounts = False):
     frequencies = {}
     for position in range(num_positions - 1):
         frequencies[(position, position + 1)] = {}
-        for monomer in monomers:
-            for other_monomer in monomers:
+        for monomer in alphabet:
+            for other_monomer in alphabet:
                 frequencies[(position, position + 1)][(monomer, other_monomer)] = start_count
 
     # count all matches
     for position in range(num_positions - 1):
-        for monomer in monomers:
-            for other_monomer in monomers:
+        for monomer in alphabet:
+            for other_monomer in alphabet:
                 for sequence in sequences:
                     current_monomer = sequence[position]
                     next_monomer = sequence[position + 1]
@@ -67,16 +57,16 @@ def joint_frequencies(sequences, monomers, with_pseudocounts = False):
 
     # obtain probabilities
     num_sequences = len(sequences)
-    if with_pseudocounts: num_sequences += len(monomers)**2
+    if with_pseudocounts: num_sequences += len(alphabet)**2
     for position in range(num_positions - 1):
-        for monomer in monomers:
-            for other_monomer in monomers:
+        for monomer in alphabet:
+            for other_monomer in alphabet:
                 frequencies[(position, position + 1)][(monomer, other_monomer)] /= num_sequences
 
     return frequencies
 
 
-def mutual_information(frequencies, joint_frequencies):
+def mutual_information(sequences, alphabet, frequencies, joint_frequencies):
     num_positions = len(sequences[0])
     results = dict(((position, position + 1), 0.0) for position in range(num_positions - 1))
 
@@ -84,17 +74,17 @@ def mutual_information(frequencies, joint_frequencies):
         next_position = position + 1
         position_key = (position, next_position)
 
-        for monomer in monomers:
-            for other_monomer in monomers:
+        for monomer in alphabet:
+            for other_monomer in alphabet:
                 frequency_x = frequencies[position][monomer]
                 frequency_y = frequencies[position + 1][other_monomer]
                 joint_frequency = joint_frequencies[position_key][(monomer, other_monomer)]
 
-                results[position_key] += joint_frequency*safe_log2(safe_div(joint_frequency, (frequency_x*frequency_y)))
+                results[position_key] += joint_frequency*safe_math.log2(safe_math.div(joint_frequency, (frequency_x*frequency_y)))
 
     return results
 
-def joint_entropy(joint_frequencies):
+def joint_entropy(sequences, alphabet, joint_frequencies):
     num_positions = len(sequences[0])
     results = dict(((position, position + 1), 0.0) for position in range(num_positions - 1))
 
@@ -102,15 +92,15 @@ def joint_entropy(joint_frequencies):
         next_position = position + 1
         position_key = (position, next_position)
 
-        for monomer in monomers:
-            for other_monomer in monomers:
+        for monomer in alphabet:
+            for other_monomer in alphabet:
                 joint_frequency = joint_frequencies[position_key][(monomer, other_monomer)]
 
-                results[position_key] -= joint_frequency*safe_log2(joint_frequency)
+                results[position_key] -= joint_frequency*safe_math.log2(joint_frequency)
 
     return results
 
-def mi_distance(mutual_informations, joint_entropies):
+def mutual_information_distance(sequences, mutual_informations, joint_entropies):
     num_positions = len(sequences[0])
     results = dict(((position, position + 1), 0.0) for position in range(num_positions - 1))
 
@@ -122,7 +112,7 @@ def mi_distance(mutual_informations, joint_entropies):
 
     return results
 
-def mi_ratio(mutual_informations, joint_entropies):
+def mutual_information_ratio(sequences, mutual_informations, joint_entropies):
     num_positions = len(sequences[0])
     results = dict(((position, position + 1), 0.0) for position in range(num_positions - 1))
 
@@ -137,10 +127,10 @@ def mi_ratio(mutual_informations, joint_entropies):
 
     return results
 
-def shannon_divergence(frequencies):
+def shannon_divergence(sequences, alphabet, frequencies):
 
     def shannon_factor(p,q):
-        return p*safe_log2(safe_div(2*p, (p + q)))
+        return p*safe_math.log2(safe_math.div(2*p, (p + q)))
 
     num_positions = len(sequences[0])
     results = dict(((position, position + 1), 0.0) for position in range(num_positions - 1))
@@ -149,7 +139,7 @@ def shannon_divergence(frequencies):
         next_position = position + 1
         position_key = (position, next_position)
 
-        for monomer in monomers:
+        for monomer in alphabet:
             p_x = frequencies[position][monomer]
             q_x = frequencies[position + 1][monomer]
             results[position_key] += 0.5*(shannon_factor(p_x, q_x) + shannon_factor(q_x, p_x))
@@ -159,55 +149,21 @@ def shannon_divergence(frequencies):
 
     return results
 
-def print_positions_list(positions_list):
-    positions_list = positions_list.items()
-    positions_list = sorted(positions_list)
+def all_stats(sequences, alphabet):
+    frequencies = position_frequencies(sequences, alphabet)
+    joint_freqs = joint_frequencies(sequences, alphabet)
 
-    for positions,value in positions_list:
-        print "{} - {:.04f}".format(positions, value)
+    mutual_informations = mutual_information(sequences, alphabet, frequencies, joint_freqs)
+    joint_entropies = joint_entropy(sequences, alphabet, joint_freqs)
+    mi_distances = mutual_information_distance(sequences, mutual_informations, joint_entropies)
+    mi_ratios = mutual_information_ratio(sequences, mutual_informations, joint_entropies)
+    jensen_shannons = shannon_divergence(sequences, alphabet, frequencies)
 
-def print_csv(mi_distances, jensen_shannons):
+    return {
+        'mutual_information': mutual_informations,
+        'joint_entropy': joint_entropies,
+        'mutual_information_distance': mi_distances,
+        'mutual_information_ratio': mi_ratios,
+        'jensen_shannon': jensen_shannons
+    }
 
-    with open("output.csv", "w") as out_fd:
-        out_fd.write("position\tmi_distance\tjensen_shannon_distance\n")
-        keys = mi_distances.keys()
-        keys = sorted(keys)
-        for positions in keys:
-            new_positions = (positions[0] + 1, positions[1]+1)
-            out_fd.write("{}\t{:.4f}\t{:.4f}\n".format(new_positions, mi_distances[positions], jensen_shannons[positions]))
-
-def safe_log2(value):
-    if value == 0.0: value = 1e-50
-    return math.log(value, 2)
-
-def safe_div(numerator, denominator):
-    if denominator == 0.0: denominator = 1e-50
-    return numerator/denominator
-
-if __name__ == "__main__":
-    in_filename, monomers = parse_args()
-    sequences = seq_parser.parse(in_filename)
-
-    frequencies = position_freqs(sequences, monomers)
-    joint_frequencies = joint_frequencies(sequences, monomers)
-
-    mutual_informations = mutual_information(frequencies, joint_frequencies)
-    joint_entropies = joint_entropy(joint_frequencies)
-    mi_distances = mi_distance(mutual_informations, joint_entropies)
-    mi_ratios = mi_ratio(mutual_informations, joint_entropies)
-    jensen_shannons = shannon_divergence(frequencies)
-    
-    print "> Mutual Information"
-    print_positions_list(mutual_informations)
-
-    print "> Joint Entropy"
-    print_positions_list(joint_entropies)
-
-    # print "> Mutual Information distances"
-    # print_positions_list(mi_distances)
-    print "> Mutual Information ratios"
-    print_positions_list(mi_ratios)
-    # print "> Jensen-Shannon"
-    # print_positions_list(jensen_shannons)
-
-    print_csv(mi_distances, jensen_shannons)
