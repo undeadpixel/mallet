@@ -39,7 +39,7 @@ ACTIONS:
   frequencies:
     Description: Returns a TSV with the probability of each emission in each
                  position for the given sequences.
-    Usage: mallet.py frequencies SEQUENCES_FILE ALPHABET [OUTPUT_TSV_FILE]
+    Usage: mallet.py frequencies SEQUENCES_FILE ALPHABET [OUTPUT_TSV_FILE] [--pseudocounts]
         SEQUENCES_FILE: A RAW or FASTA file name with the sequences (view docs)
         ALPHABET: A string with all the emissions (Example: "ACGT")
         OUTPUT_TSV_FILE: (optional) A TSV file where the output will be stored.
@@ -101,9 +101,21 @@ if __name__ == '__main__':
 
         sequences = seq_parser.parse(args[0])
         alphabet = args[1]
-        output_filename = get_output_filename_from_args(args, 2)
 
-        emission_frequencies_per_position = sequence_stats.position_frequencies(sequences, alphabet)
+        output_arg = 2
+        pseudocounts = False
+        if len(args) > 2:
+            if args[2] == '--pseudocounts':
+                pseudocounts = True
+                output_arg = 3
+
+            if len(args) > 3:
+                if args[3] == '--pseudocounts':
+                    pseudocounts = True
+
+        output_filename = get_output_filename_from_args(args, output_arg)
+
+        emission_frequencies_per_position = sequence_stats.position_frequencies(sequences, alphabet, pseudocounts)
 
         tsv_writer.write_emission_frequencies_per_position(emission_frequencies_per_position, output_filename)
 
