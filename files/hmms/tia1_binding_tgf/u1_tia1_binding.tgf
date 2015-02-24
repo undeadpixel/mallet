@@ -1,6 +1,5 @@
 1 Begin BEGIN
 2 Exon E
-3 3position_before_ss 2
 4 2position_before_ss 3
 5 1position_before_ss 4
 6 Splice_site *
@@ -8,8 +7,7 @@
 8 2position_after_ss 7
 9 3position_after_ss 8
 10 4position_after_ss 9
-11 5position_after_ss 0
-12 TIA1 binding S
+12 TIA1_binding S
 13 Intron I
 14 End END
 # transitions
