@@ -99,6 +99,12 @@ class State(object):
         output += "Transitions: {}]".format(self.simple_transitions())
         return output
 
+    # methods for getting and setting transitions
+    def get_transition_state(self, state_id):
+        return next(state for state,prob in self.transitions.iteritems() if state.id_num == state_id)
+
+    def set_transition_state(self, state_id, probability):
+        self.transitions[self.get_transition_state(state_id)] = probability
     # private
 
     def __check_emissions_probability_sum(self):
