@@ -23,9 +23,9 @@ plot_context_metric = function (metric_name, metric_text) {
   print(plot)
 }
 
-real_data = read.table("real_stats.tsv", sep="\t",header=TRUE)
-false_data = read.table("false_stats.tsv", sep="\t",header=TRUE)
-context_data = read.table("context_stats.tsv", sep="\t",header=TRUE)
+real_data = read.table("plots_data/real_stats.tsv", sep="\t",header=TRUE)
+false_data = read.table("plots_data/false_stats.tsv", sep="\t",header=TRUE)
+context_data = read.table("plots_data/context_stats.tsv", sep="\t",header=TRUE)
 
 
 plot_real_false_metric("jensen_shannon", "Jensen-Shannon Distance")
