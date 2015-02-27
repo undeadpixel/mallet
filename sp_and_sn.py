@@ -40,11 +40,27 @@ if __name__ == '__main__':
     sequences = seq_parser.parse("files/sequences/context_real_donors.raw")
 
     #HMMS should include all the Hidden Markov Models to test"
-    hmms = ("files/hmms/toy_model.tgf",
-            "files/hmms/u1_binding_tgf/u1_complete.tgf",
-            "files/hmms/u1_binding_tgf/u1_2_8.tgf",
-            "files/hmms/u1_binding_tgf/u1_3_7.tgf",
-            "files/hmms/tia1_binding_tgf/tia1_binding.tgf",
-            "files/hmms/tia1_binding_tgf/u1_tia1_binding.tgf")
+    # hmms = ("files/hmms/toy_model.tgf",
+    #         "files/hmms/u1_binding_tgf/u1_2_8.tgf",
+    #         "files/hmms/u1_binding_tgf/u1_complete.tgf",
+    #         "files/hmms/tia1_binding_tgf/small_prob_tia1.tgf",
+    #         "files/hmms/tia1_binding_tgf/u1_tia1_binding.tgf",
+    #         "files/hmms/u1_binding_tgf/u1_complete.tgf",
+    #         "files/hmms/u1_binding_tgf/u1_3_7.tgf",
+    #         "files/hmms/tia1_binding_tgf/tia1_binding.tgf",
+    #         "files/hmms/tia1_binding_tgf/u1_tia1_binding.tgf",
+    #         "files/hmms/u1_binding_tgf/u1_2_8.tgf",
+    #         "files/hmms/tia1_binding_tgf/small_prob_tia1.tgf",
+    #         )
+
+    hmms = ("files/hmms/u1_binding_tgf/u1_2_8.tgf",
+            "files/hmms/tia1_binding_tgf/small_prob_tia1.tgf",
+            "files/hmms/tia1_binding_tgf/small_prob_4TIA1.tgf",
+            "files/hmms/tia1_binding_tgf/post_intron.tgf",
+            "files/hmms/tia1_binding_tgf/u1_2_8_postintron.tgf")
+
+    # hmms = ("files/hmms/u1_binding_tgf/u1_2_8.tgf",
+    #         "files/hmms/tia1_binding_tgf/alvmodel/u1_complete.tgf",
+    #         "files/hmms/tia1_binding_tgf/alvmodel/u1_tia1_complete.tgf")
 
     hmm_iterator(hmms, sequences)
