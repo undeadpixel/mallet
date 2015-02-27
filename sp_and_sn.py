@@ -53,11 +53,19 @@ if __name__ == '__main__':
     #         "files/hmms/tia1_binding_tgf/small_prob_tia1.tgf",
     #         )
 
+    # hmms = ("files/hmms/u1_binding_tgf/u1_2_8.tgf",
+    #         "files/hmms/tia1_binding_tgf/small_prob_tia1.tgf",
+    #         "files/hmms/tia1_binding_tgf/small_prob_4TIA1.tgf",
+    #         "files/hmms/u1_binding_tgf/u1_complete.tgf",
+    #         "files/hmms/tia1_binding_tgf/u1_comp_4tia1.tgf",
+    #         "files/hmms/tia1_binding_tgf/postint_u1_comp_4tia1.tgf",
+    #         "files/hmms/tia1_binding_tgf/post_intron.tgf",
+    #         "files/hmms/tia1_binding_tgf/u1_2_8_postintron.tgf")
+    
     hmms = ("files/hmms/u1_binding_tgf/u1_2_8.tgf",
-            "files/hmms/tia1_binding_tgf/small_prob_tia1.tgf",
-            "files/hmms/tia1_binding_tgf/small_prob_4TIA1.tgf",
-            "files/hmms/tia1_binding_tgf/post_intron.tgf",
-            "files/hmms/tia1_binding_tgf/u1_2_8_postintron.tgf")
+            "files/hmms/tia1_binding_tgf/u1_comp_4tia1.tgf",
+            "files/hmms/u1_binding_tgf/u1_complete.tgf",
+            "files/hmms/tia1_binding_tgf/postint_u1_comp_4tia1.tgf")
 
     # hmms = ("files/hmms/u1_binding_tgf/u1_2_8.tgf",
     #         "files/hmms/tia1_binding_tgf/alvmodel/u1_complete.tgf",
