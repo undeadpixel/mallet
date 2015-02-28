@@ -7,8 +7,6 @@ import mallet.input.sequence_parser as seq_parser
 import mallet.input.tgf_parser as tgf_parser
 import mallet.safe_math as safe_math
 
-# STEP = 0.1
-
 STEPS = 100
 
 def frange(start, end, step):
@@ -57,16 +55,10 @@ alignments = viterbi.viterbi_all(hmm, sequences)
 
 evaluated_alignments = map(evaluate_alignment, alignments)
 
-true_alignments = len(filter(lambda align: align[1], evaluated_alignments))
-false_alignments = len(alignments) - true_alignments
 max_score = max(alignments, key = lambda align: align.score).score
 min_score = min(alignments, key = lambda align: align.score).score
 
-# print "T: {}|F: {}".format(true_alignments, false_alignments)
-# print "SCORE: {:.4f} to {:.4f}".format(min_score, max_score)
-
 roc_data = {}
-# scores_iterator = frange(float_floor(min_score), float_ceil(max_score), STEP)
 
 step_size = (max_score - min_score)/STEPS
 
@@ -82,6 +74,3 @@ for score in scores_iterator:
     roc_data[score] = (tpr, fpr, ppv, tp, tn, fp, fn)
 
 print_roc_data_in_tsv(roc_data)
-
-# for score,metrics in sorted(roc_data.items()):
-#     print "{:.4f} | TPR: {:.4f} - FPR: {:.4f} | TP: {:.4f} - TN: {:.4f} FP: {:.4f} - FN: {:.4f}".format(score, *metrics)
