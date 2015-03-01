@@ -4,6 +4,8 @@
 
 Mallet is a simple implementation of the viterbi algorithm for scoring a set of sequences (for example DNA, RNA or protein) by their structure using Hidden Markov Models.
 
+It has been implemented by Josep Arús and Samuel Miravet as a project for the Advanced Genome Bioinformatics (AGB) subject in the MSc in Bioinformatics at the Universitat Pompeu Fabra.
+
 It also has additional features, such as a HMM sampler, a position frequence counter and entropy-based stats.
 
 For detailed information, please refer to the [user's guide](https://github.com/undeadpixel/mallet/wiki).
