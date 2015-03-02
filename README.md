@@ -6,7 +6,7 @@ Mallet is a simple implementation of the viterbi algorithm for scoring a set of 
 
 It also has additional features, such as a HMM sampler, a position frequence counter and entropy-based stats.
 
-It has been implemented by Josep Arús and Samuel Miravet as a project for the Advanced Genome Bioinformatics (AGB) subject in the MSc in Bioinformatics at the [Universitat Pompeu Fabra](http://www.upf.edu).
+It has been implemented by Josep Arús and Samuel Miravet (equal contributions) as a project for the Advanced Genome Bioinformatics (AGB) subject in the MSc in Bioinformatics at the [Universitat Pompeu Fabra](http://www.upf.edu).
 
 For a step-by-step guide with examples, please refer to the [user's guide](https://github.com/undeadpixel/mallet/wiki).
 
