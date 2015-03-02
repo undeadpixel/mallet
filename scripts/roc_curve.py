@@ -2,6 +2,9 @@
 
 import sys, math
 
+# added prent directory to import path
+sys.path.append("..")
+
 import mallet.viterbi as viterbi
 import mallet.input.sequence_parser as seq_parser
 import mallet.input.tgf_parser as tgf_parser
