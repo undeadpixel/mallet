@@ -54,7 +54,8 @@ if __name__ == '__main__':
             "../files/hmms/u1_binding_tgf/u1_3_7.tgf",
             "../files/hmms/tia1_binding_tgf/small_prob_tia1.tgf",
             "../files/hmms/tia1_binding_tgf/small_prob_4TIA1.tgf",
-            "../files/hmms/tia1_binding_tgf/postint_u1_comp_4tia1.tgf",
-            "../files/hmms/tia1_binding_tgf/u1_comp_4tia1.tgf")
+            "../files/hmms/tia1_binding_tgf/comp_prob_tia1.tgf",
+            "../files/hmms/tia1_binding_tgf/comp_prob_4tia1.tgf",
+            )
 
     hmm_iterator(hmms, sequences)

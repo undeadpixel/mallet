@@ -96,10 +96,10 @@
     <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="674.263,261.842 663.347,259.428 668.437,257.118 669.645,251.66 "/>
   </g>
   <text font-size="16.9333" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="686.8" y="237.9">
-    <tspan x="686.8" y="237.9">A = 0.25</tspan>
-    <tspan x="686.8" y="259.067">C = 0.25</tspan>
-    <tspan x="686.8" y="280.233">G = 0.25</tspan>
-    <tspan x="686.8" y="301.4">T = 0.25</tspan>
+    <tspan x="686.8" y="237.9">A = 0.4</tspan>
+    <tspan x="686.8" y="259.067">C = 0.1</tspan>
+    <tspan x="686.8" y="280.233">G = 0.1</tspan>
+    <tspan x="686.8" y="301.4">T = 0.4</tspan>
   </text>
   <g>
     <ellipse style="fill: #c6e8f3" cx="231.503" cy="276.603" rx="42.7029" ry="42.7029"/>
