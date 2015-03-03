@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/PR-SVG-20010719/DTD/svg10.dtd">
-<svg width="49cm" height="28cm" viewBox="31 -166 979 553" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg width="46cm" height="25cm" viewBox="31 -107 916 494" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
   <g>
     <ellipse style="fill: #ffffff" cx="98.7356" cy="164.368" rx="33.3678" ry="33.3678"/>
     <ellipse style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" cx="98.7356" cy="164.368" rx="33.3678" ry="33.3678"/>
@@ -74,8 +74,8 @@
   <text font-size="16.9333" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="323.858" y="167.228">
     <tspan x="323.858" y="167.228">0.9</tspan>
   </text>
-  <text font-size="16.9333" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="585.206" y="267.592">
-    <tspan x="585.206" y="267.592">0.9</tspan>
+  <text font-size="16.9333" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="570.206" y="263.592">
+    <tspan x="570.206" y="263.592">0.89</tspan>
   </text>
   <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="199.706" y1="34.7724" x2="199" y2="108.805"/>
   <text font-size="16.9333" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="206.948" y="45.9648">
@@ -184,88 +184,35 @@
   <text font-size="16.9333" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="486.8" y="-20.6">
     <tspan x="486.8" y="-20.6">1.0</tspan>
   </text>
-  <text font-size="16.9333" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="697.6" y="47.3">
-    <tspan x="697.6" y="47.3">0.01</tspan>
+  <text font-size="16.9333" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="672.6" y="-22.7">
+    <tspan x="672.6" y="-22.7">0.01</tspan>
   </text>
   <g>
-    <ellipse style="fill: #e2dae2" cx="785.767" cy="-22.4971" rx="43.2529" ry="43.2529"/>
-    <ellipse style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" cx="785.767" cy="-22.4971" rx="43.2529" ry="43.2529"/>
-    <text font-size="19.7556" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="785.767" y="-16.3235">
-      <tspan x="785.767" y="-16.3235">TIA1-S</tspan>
+    <ellipse style="fill: #e2dae2" cx="798.767" cy="-21.4971" rx="43.2529" ry="43.2529"/>
+    <ellipse style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" cx="798.767" cy="-21.4971" rx="43.2529" ry="43.2529"/>
+    <text font-size="19.7556" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="798.767" y="-15.3235">
+      <tspan x="798.767" y="-15.3235">TIA1-S</tspan>
     </text>
   </g>
-  <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="671.19" y1="-161.092" x2="670.484" y2="-87.0602"/>
-  <text font-size="16.9333" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="678.432" y="-149.9">
-    <tspan x="678.432" y="-149.9">A = 0.06</tspan>
-    <tspan x="678.432" y="-128.733">C = 0.06</tspan>
-    <tspan x="678.432" y="-107.567">G = 0.06</tspan>
-    <tspan x="678.432" y="-86.4">T = 0.82</tspan>
+  <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="865.19" y1="37.9076" x2="864.484" y2="111.94"/>
+  <text font-size="16.9333" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="871.432" y="48.1">
+    <tspan x="871.432" y="48.1">A = 0.06</tspan>
+    <tspan x="871.432" y="69.2667">C = 0.06</tspan>
+    <tspan x="871.432" y="90.4333">G = 0.06</tspan>
+    <tspan x="871.432" y="111.6">T = 0.82</tspan>
   </text>
   <g>
-    <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" d="M 665.216,-116.229 A 64.3147,64.3147 0 0 0 742.514,-22.497"/>
-    <polygon style="fill: #000000" points="669.403,-122.361 666.82,-111.483 664.59,-116.609 659.151,-117.901 "/>
-    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="669.403,-122.361 666.82,-111.483 664.59,-116.609 659.151,-117.901 "/>
+    <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" d="M 798.767,21.7559 A 45.0412,45.0412 0 0 0 856.19,79.0243"/>
+    <polygon style="fill: #000000" points="862.93,76.091 857.011,85.5759 856.533,80.0062 851.79,77.0467 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="862.93,76.091 857.011,85.5759 856.533,80.0062 851.79,77.0467 "/>
   </g>
   <g>
-    <ellipse style="fill: #deb4de" cx="875.055" cy="-95.3971" rx="43.2529" ry="43.2529"/>
-    <ellipse style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" cx="875.055" cy="-95.3971" rx="43.2529" ry="43.2529"/>
-    <text font-size="19.7556" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="875.055" y="-89.2235">
-      <tspan x="875.055" y="-89.2235">TIA1-X</tspan>
-    </text>
+    <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" d="M 768.178,9.0914 A 120.856,120.856 0 0 0 695.921,125.182"/>
+    <polygon style="fill: #000000" points="696.464,132.641 690.257,123.342 695.53,125.199 700.179,122.095 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="696.464,132.641 690.257,123.342 695.53,125.199 700.179,122.095 "/>
   </g>
-  <g>
-    <ellipse style="fill: #be7dbe" cx="965.855" cy="-28.2971" rx="43.2529" ry="43.2529"/>
-    <ellipse style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" cx="965.855" cy="-28.2971" rx="43.2529" ry="43.2529"/>
-    <text font-size="19.7556" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="965.855" y="-22.1235">
-      <tspan x="965.855" y="-22.1235">TIA1-Y</tspan>
-    </text>
-  </g>
-  <g>
-    <ellipse style="fill: #b54eb5" cx="878.655" cy="49.8029" rx="43.2529" ry="43.2529"/>
-    <ellipse style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" cx="878.655" cy="49.8029" rx="43.2529" ry="43.2529"/>
-    <text font-size="19.7556" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="878.655" y="55.9765">
-      <tspan x="878.655" y="55.9765">TIA1-Z</tspan>
-    </text>
-  </g>
-  <g>
-    <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" d="M 829.079,-104.373 A 30.171,30.171 0 1 0 785.766,-65.75"/>
-    <polygon style="fill: #000000" points="831.493,-97.6117 825.161,-106.826 830.458,-105.04 835.065,-108.206 "/>
-    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="831.493,-97.6117 825.161,-106.826 830.458,-105.04 835.065,-108.206 "/>
-  </g>
-  <g>
-    <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" d="M 971.05,-79.2877 A 27.796,27.796 0 1 0 918.308,-95.397"/>
-    <polygon style="fill: #000000" points="967.394,-73.171 970.658,-83.8645 972.56,-78.6081 977.907,-76.9763 "/>
-    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="967.394,-73.171 970.658,-83.8645 972.56,-78.6081 977.907,-76.9763 "/>
-  </g>
-  <g>
-    <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" d="M 925.898,58.294 A 30.278,30.278 0 1 0 965.854,14.9559"/>
-    <polygon style="fill: #000000" points="922.534,51.9496 930.134,60.1498 924.634,59.1497 920.534,62.9496 "/>
-    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="922.534,51.9496 930.134,60.1498 924.634,59.1497 920.534,62.9496 "/>
-  </g>
-  <g>
-    <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" d="M 874.923,101.633 A 29.0512,29.0512 0 1 0 909.244,80.3914"/>
-    <polygon style="fill: #000000" points="877.444,94.9359 876.235,106.051 873.384,101.242 867.826,100.638 "/>
-    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="877.444,94.9359 876.235,106.051 873.384,101.242 867.826,100.638 "/>
-  </g>
-  <g>
-    <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" d="M 835.402,49.803 A 149.679,149.679 0 0 0 701.221,126.231"/>
-    <polygon style="fill: #000000" points="697.709,132.842 697.513,121.663 700.945,126.076 706.534,125.978 "/>
-    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="697.709,132.842 697.513,121.663 700.945,126.076 706.534,125.978 "/>
-  </g>
-  <text font-size="16.9333" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="762.802" y="81.1">
-    <tspan x="762.802" y="81.1">0.8</tspan>
-  </text>
-  <text font-size="16.9333" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="892.802" y="156.1">
-    <tspan x="892.802" y="156.1">0.2</tspan>
-  </text>
-  <text font-size="16.9333" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="781.802" y="-123.9">
-    <tspan x="781.802" y="-123.9">1.0</tspan>
-  </text>
-  <text font-size="16.9333" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="955.602" y="-117.8">
-    <tspan x="955.602" y="-117.8">1.0</tspan>
-  </text>
-  <text font-size="16.9333" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="973.402" y="79.3">
-    <tspan x="973.402" y="79.3">1.0</tspan>
+  <text font-size="16.9333" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="707.802" y="31.1">
+    <tspan x="707.802" y="31.1">0.3</tspan>
   </text>
   <g>
     <ellipse style="fill: #cae8f2" cx="233.503" cy="280.053" rx="42.7029" ry="42.7029"/>
@@ -298,9 +245,9 @@
     <tspan x="623.8" y="-13.9">1.0</tspan>
   </text>
   <g>
-    <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" d="M 687.206,58.053 A 54.4772,54.4772 0 0 0 753.837,17.6193"/>
-    <polygon style="fill: #000000" points="755.063,10.3245 759.543,20.5682 754.678,17.8146 749.556,20.0544 "/>
-    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="755.063,10.3245 759.543,20.5682 754.678,17.8146 749.556,20.0544 "/>
+    <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" d="M 746.658,-25.2633 A 54.9629,54.9629 0 0 0 674.702,27.8534"/>
+    <polygon style="fill: #000000" points="753.541,-22.5489 742.364,-22.8408 746.922,-26.077 747.068,-31.6653 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="753.541,-22.5489 742.364,-22.8408 746.922,-26.077 747.068,-31.6653 "/>
   </g>
   <g>
     <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" d="M 614.304,88.2524 A 39.9311,39.9311 0 0 0 611.325,164.223"/>
@@ -309,5 +256,21 @@
   </g>
   <text font-size="16.9333" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="545.8" y="140.1">
     <tspan x="545.8" y="140.1">0.99</tspan>
+  </text>
+  <g>
+    <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" d="M 696.743,134.859 A 120.856,120.856 0 0 0 769.001,18.769"/>
+    <polygon style="fill: #000000" points="768.457,11.31 774.664,20.609 769.392,18.7516 764.742,21.8552 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="768.457,11.31 774.664,20.609 769.392,18.7516 764.742,21.8552 "/>
+  </g>
+  <g>
+    <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" d="M 829.355,-52.0855 A 27.0434,27.0434 0 1 0 795.607,-73.4955"/>
+    <polygon style="fill: #000000" points="797.657,-66.691 788.352,-72.8891 793.933,-73.2014 797.032,-77.8539 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="797.657,-66.691 788.352,-72.8891 793.933,-73.2014 797.032,-77.8539 "/>
+  </g>
+  <text font-size="16.9333" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="855.8" y="-69.9">
+    <tspan x="855.8" y="-69.9">0.7</tspan>
+  </text>
+  <text font-size="16.9333" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="749.8" y="108.1">
+    <tspan x="749.8" y="108.1">0.01</tspan>
   </text>
 </svg>
